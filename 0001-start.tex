@@ -1,8 +1,7 @@
 \documentclass{beamer}
 \usetheme{default} 
 
-%\setbeamertemplate{background canvas}[vertical shading][bottom=green!3,top=green!10] 
-%\setbeamercolor{structure}{fg=OliveGreen!50!black} 
+\setbeamercolor{structure}{fg=Green!50!black} 
 \usebackgroundtemplate{
     \centering\includegraphics[width=\paperwidth,height=\paperheight]{images/android_wall}
 }
@@ -14,13 +13,41 @@
 \lstset{language=java, basicstyle=\small, commentstyle=\color{gray}}
 \lstset{frame=single}
 
-\title{Android - Podstawy}
+\usefoottemplate{
+  \vbox{
+    \tinycolouredline{structure!25}{
+      \color{white}\textbf{
+        \insertshortauthor\hfill
+        Android @ Szczecin 2011
+      } 
+    }
+%    \tinycolouredline{structure}{
+%      \color{white}\textbf{\insertshorttitle}\hfill
+%    } 
+  }
+}
+
+\title{Android @ Szczecin \\ 2011}
 \author{Konrad Malawski \\ konrad.malawski@java.pl}
 
 \begin{document}
 
 \begin{frame}
 \titlepage
+\end{frame}
+
+\begin{frame}
+ \centering
+ Konrad Malawski \\
+ _\\
+ Lunar Logic Polska \\
+ PolishJUG \\ 
+ GeeCON\\
+ KrakówGTUG\\
+ _\\
+ twitter: @ktosopl\\
+ github: ktoso\\
+ blog: blog.project13.pl\\
 \end{frame}
 
 \begin{frame}
@@ -33,12 +60,12 @@
 
 \end{frame}
 
+
 \begin{frame}
-  \frametitle{It's Linux}
+\frametitle{It's Linux}
 \begin{itemize}
  \item Warto pamiętać, Android = Linux (zawiera glibc etc)
 \end{itemize}
-
 \end{frame}
 
 \begin{frame}[fragile]
