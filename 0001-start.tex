@@ -71,11 +71,11 @@
 
 \begin{frame}\frametitle{Słowa na dziś:}
  \begin{itemize}
+  \item \Huge{Application}
   \item \Huge{Activity}
   \item \Huge{View}
   \item \Huge{Service}
   \item \Huge{Intent}
-  \item \Huge{PendingIntent}
   \item \_\_\_\_\_\_\_\Huge{Manager}
  \end{itemize}
 \end{frame}
@@ -99,6 +99,26 @@
  Obiecuję, że nie będzie już slajdów takich jak poprzedni :-) \\
  \textbf{Konkrety, obrazki, kodzenie!}
 \end{center}
+\end{frame}
+
+% przegląd ACTIVITIES
+\begin{frame}\frametitle{Activity lifecycle}
+ \begin{figure}[ct]
+  \centering
+  \includegraphics[height=\textheight]{images/activity_lifecycle}
+ \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Activity}
+Wołany gdy Activity jest tworzona po raz pierwszy.
+\begin{lstlisting}
+  public class MainActivity extends Activity {
+    public void onCreate(Bundle savedState) {
+      /**/
+    }
+  }
+\end{lstlisting}
+
 \end{frame}
 
 % przegląd VIEWS
@@ -174,7 +194,7 @@
 \end{frame}
 
 
-
+% Resources
 \begin{frame}\frametitle{R, as in Resource}  
 \begin{center}
  \Huge{\textbf{R}}
@@ -227,8 +247,73 @@ A skorzystamy z niego w np. \textbf{Activity}:
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}\frametitle{R, tips and tricks}
+\begin{frame}[fragile]\frametitle{Strings as Resources}
+\begin{figure}
+\title{res/layouts/main.xml}
+\begin{lstlisting}
+<TextView android:layout_height="fill_parent"
+          android:layout_width="fill_parent"
+          android:text="Witaj swiecie!"
+       />
+\end{lstlisting}
+\end{figure}
 
+Mieszanie treści z layoutem jest złym pomysłem.
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Strings as Resources}
+\begin{figure}
+\title{res/layouts/main.xml}
+\begin{lstlisting}
+<TextView android:layout_height="fill_parent"
+          android:layout_width="fill_parent"
+          android:text="@string/hello_world"
+       />
+\end{lstlisting}
+\end{figure}
+
+\begin{figure}
+ \title{res/values/strings.xml}
+\begin{lstlisting}
+<resources>
+  <string name="hello_world">Witaj swiecie!</string>
+</resources>
+\end{lstlisting}
+\end{figure}
+
+(Tip: W intellij piszemy \textit{@string/hello\_world} a następnie ALT+ENTER, aby utworzyć zasób w odpowiednim miejscu.)
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Proste I18N (i nie tylko) dzięki klasyfikatorom}
+
+\centering
+\ttfamily 
+res/values-\textbf{pl}/strings.xml
+
+\begin{figure}
+\begin{lstlisting}
+<resources>
+  <string name="hello_world">Witaj swiecie!</string>
+</resources>
+\end{lstlisting}
+\end{figure}
+
+\centering
+\ttfamily 
+res/values-\textbf{en}/strings.xml
+\begin{figure}
+\begin{lstlisting}
+<resources>
+  <string name="hello_world">Hello world!</string>
+</resources>
+\end{lstlisting}
+\end{figure}
+
+
+\end{frame}
+
+
+\begin{frame}\frametitle{R, tips and tricks}
 \begin{itemize}
  \item nazwy wykorzystywane dla np. ID \textbf{nie muszą} być unikalne, @+id/login raz może oznaczać ten EditText a raz TextView.
        Rozwiązywane jest do wedle 'na czym wołany jest findById'.
@@ -237,34 +322,30 @@ A skorzystamy z niego w np. \textbf{Activity}:
 \end{itemize}
 \end{frame}
 
+\begin{frame}\frametitle{Zadanie: Hello Szczecin!}
+\begin{itemize}
+ \item Prosty widok z przyciskiem oraz tekstem oraz polem tekstowym na czyjeś imię
+ \item Ma być możliwe podanie swojego imienia, wtedy text po wciśnięciu przycisku ma wyglądać ,,Hello \_\_\_\_!''
+ \item tip: korzystamy z \textbf{res/values/strings.xml} oraz \textbf{res/layouts/main.xml}
+ \item tip: Przydadzą się widżety: TextView, Button, EditText
+ \pause \item \textbf{Uwaga! Skorzystamy z \textbf{Robolectric} to \textit{TDD}* aplikacji Androiowej!}
+\end{itemize}
 
-\begin{frame}
- \begin{figure}[ct]
-  \centering
-  \includegraphics[height=\textheight]{images/activity_lifecycle}
+* TDD - Test Driven Development\\
+Tak tak, ponieważ zwyczajny hello world byłby nudny! :-)\\
+\textit{Testy są już dla Was przygotowane.}
+\end{frame}
+
+\begin{frame}\frametitle{Testowanie a sprawa Androida}
+Jest pewien problem z 'zwyczajnym testowaniem' aplikacji androidowych:
+ \begin{figure}[ch]
+  \verb|java.lang.RuntimeException: Stub!
  \end{figure}
-
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{Activity}
-\begin{lstlisting}
-  public class MainActivity extends Activity {
-    public void onCreate(Bundle savedState) {
-      /**/
-    }
-  }
-\end{lstlisting}
 
-\end{frame}
-
-\begin{frame}
- todo, informacje o service i opis lifecycle
-\end{frame}
-
-% UI STUFF
-\begin{frame}[fragile]
- \frametitle{Pyszne tosty z masełkiem (android.widget.Toast)}
+% MORE FUN UI STUFF
+\begin{frame}[fragile]\frametitle{Pyszne tosty z masełkiem (android.widget.Toast)}
 
 \begin{figure}[h]
  \centering
