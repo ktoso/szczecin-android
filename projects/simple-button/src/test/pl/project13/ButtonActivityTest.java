@@ -1,4 +1,4 @@
-package pl.llp;
+package pl.project13;
 
 import android.widget.Button;
 import android.widget.TextView;
@@ -8,10 +8,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.hamcrest.core.Is.is;
-import static org.hamcrest.core.IsEqual.*;
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Konrad Malawski
@@ -21,15 +20,18 @@ public class ButtonActivityTest {
 
   private ButtonActivity activity;
 
-  private Button button = (Button) activity.findViewById(R.id.main_button);
-  private TextView helloText = (TextView) activity.findViewById(R.id.hello_text);
-  private TextView whomToHelloEditText = (TextView) activity.findViewById(R.id.whom_to_hello_edit_text);
-
+  private Button button;
+  private TextView helloText;
+  private TextView whomToHelloEditText;
 
   @Before
   public void setUp() throws Exception {
     activity = new ButtonActivity();
     activity.onCreate(null);
+
+    button = (Button) activity.findViewById(R.id.main_button);
+    helloText = (TextView) activity.findViewById(R.id.hello_text);
+    whomToHelloEditText = (TextView) activity.findViewById(R.id.whom_to_hello_edit_text);
   }
 
   @Test
@@ -52,8 +54,8 @@ public class ButtonActivityTest {
   @Test
   public void shouldSayHelloSzczecin() throws Exception {
     // when
-    button.performClick();
     whomToHelloEditText.setText("Szczecin");
+    button.performClick();
 
     // then
     String textValue = String.valueOf(helloText.getText());

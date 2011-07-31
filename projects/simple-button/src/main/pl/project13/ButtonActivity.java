@@ -1,4 +1,4 @@
-package pl.llp;
+package pl.project13;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ public class ButtonActivity extends Activity {
     button.setOnClickListener(new View.OnClickListener() {
       public void onClick(View view) {
         Editable greetMe = greet.getText();
-        String helloText = "Hello" + (greetMe.length() > 0 ? " " + greet : "") + "!";
+        String helloText = "Hello" + (greetMe.length() > 0 ? " " + greetMe : "") + "!";
         text.setText(helloText);
         button.setEnabled(false);
         hideButton();
