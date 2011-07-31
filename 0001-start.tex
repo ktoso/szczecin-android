@@ -7,7 +7,9 @@
 }
 \setbeamertemplate{navigation symbols}{}
 
+\usepackage[polish]{babel}
 \usepackage[utf8x]{inputenc}
+\usepackage{t1enc}
 \usepackage{default}
 \usepackage{listings}
 
@@ -67,42 +69,119 @@
 
 \end{frame}
 
-\begin{frame}
- \frametitle{Słowa na dziś:}
+\begin{frame}\frametitle{Słowa na dziś:}
  \begin{itemize}
   \item \Huge{Activity}
+  \item \Huge{View}
   \item \Huge{Service}
   \item \Huge{Intent}
-  \item \_\_\_\_\_\_\_\Huge{Manager}
   \item \Huge{PendingIntent}
+  \item \_\_\_\_\_\_\_\Huge{Manager}
  \end{itemize}
-
 \end{frame}
 
-\begin{frame}
-  \frametitle{Przykłady Managerów}
+\begin{frame}\frametitle{Przykłady Managerów}
   \begin{itemize}
-    \item \textbf{NotificationManager} - dla powiadomień
-    \pause \item \textbf{AccountManager} - dla kont użytkownika, np. konto skype / gmail (system-wide)
-    \pause \item \textbf{AlarmManager} - dla alarmów
-    \pause \item \textbf{BatteryManager} - stan baterii
-    \pause \item \textbf{ClipboardManager} - schowek nie jest taki trywialny, ma całe własne API
-    \pause \item \textbf{ConnectivityManager} - możemy sprawdzić czy Internet jest dostępny. Via 3G czy WiFi?
-    \pause \item \textbf{LocationManager} - dostęp do pozycji (również GPS)
-    \pause \item nowe: \textbf{FragmentManager} - nowe api do umieszczania wiele activity na jednym ekranie (upraszczając)
-    \pause \item nowe: \textbf{DownloadManager} - zaawansowany menadżer pobierania plików w tle (w \textbf{Honeycomb})
+    \item \textbf{NotificationManager} - dla powiadomień\\
+    \pause \item \textbf{AccountManager} - dla kont użytkownika, np. konto skype / gmail (system-wide)\\
+    \pause \item \textbf{AlarmManager} - dla alarmów\\
+    \pause \item \textbf{BatteryManager} - stan baterii\\
+    \pause \item \textbf{ClipboardManager} - schowek nie jest taki trywialny, ma całe własne API\\
+    \pause \item \textbf{ConnectivityManager} - możemy sprawdzić czy Internet jest dostępny. Via 3G czy WiFi?\\
+    \pause \item \textbf{LocationManager} - dostęp do pozycji (również GPS)\\
+    \pause \item nowe: \textbf{FragmentManager} - nowe api do umieszczania wiele activity na jednym ekranie (upraszczając)\\
+    \pause \item nowe: \textbf{DownloadManager} - zaawansowany menadżer pobierania plików w tle (w \textbf{Honeycomb})\\
   \end{itemize}
 \end{frame}
 
-\begin{frame}
- \frametitle{R, as in Resource}  
+\begin{frame} \frametitle{Good News, nie będzie tsunami wyliczeń nazw klas}
 \begin{center}
- \Huge{R}
+ Obiecuję, że nie będzie już slajdów takich jak poprzedni :-) \\
+ \textbf{Konkrety, obrazki, kodzenie!}
 \end{center}
 \end{frame}
 
-\begin{frame}[fragile]
-\frametitle{R, as in Resource}
+% przegląd VIEWS
+\begin{frame}[fragile]\frametitle{LinearLayout + EditText z wrap\_content}
+ \begin{columns}
+  \column{.7\textwidth}
+  \begin{verbatim}
+<LinearLayout
+ android:id="@+id/root_layout"
+ android:layout_width="fill_parent"
+ android:layout_height="fill_parent"
+ android:orientation="vertical">
+  <!-- ... -->
+
+  <TextView android:id="..." ... />
+  <EditText android:id="..."
+   android:layout_width="fill_parent"
+   android:layout_height="wrap_content" 
+  />
+</LinearLayout>
+
+  \end{verbatim}
+  \column{.4\textwidth}
+  \begin{figure}
+   \includegraphics[width=.7\textwidth]{images/linearlayout_wrap}   
+  \end{figure}
+
+ \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{LinearLayout + TextView z fill\_parent}
+ \begin{columns}
+  \column{.7\textwidth}
+  \begin{verbatim}
+<LinearLayout
+ android:id="@+id/root_layout"
+ android:layout_width="fill_parent"
+ android:layout_height="fill_parent"
+ android:orientation="vertical">
+  <!-- ... -->
+
+  <TextView android:id="..." ... />
+  <EditText android:id="..."
+   android:layout_width="fill_parent"
+   android:layout_height="fill_parent" 
+  />
+</LinearLayout>
+
+  \end{verbatim}
+  \column{.4\textwidth}
+  \begin{figure}
+   \includegraphics[width=.7\textwidth]{images/linearlayout_fill}   
+  \end{figure}
+
+ \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Panowanie nad Layoutami}
+\begin{itemize}
+ \item Istnieje jeszcze \textbf{match\_parent}, pojawił się w nowszych wersjach Android, jest analogiczny do fill\_parent.
+ \item W przypadku gdy chcemy ustalać ''jaką część widoku ma zajmować pewien element'', korzystamy z \textbf{android:layout\_weight}, przyjmuje on liczby \textit{(default = 1)}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Ważne ViewGroups:}
+\begin{itemize}
+ \item \textbf{FrameLayout} - Layout dla tylko jednego elementu, najprostszy
+ \item \textbf{LinearLayout} - Wystarczający dla prostych widoków, kombinowanie kilku LinearLayout daje przyjemne efekty
+ \item \textbf{ListView} - Sam dba o scrollowanie
+ \item \textbf{TabHost} - Może mieć zakładki
+ \pause \item \textbf{Spinner}, \textbf{Gallery}, \textbf{GridView}, \textbf{RelativeLayout}, \textbf{ScrollView}, \textbf{SurfaceView}, \textbf{TableLayout}, \textbf{ViewFlipper}, \textbf{ViewSwitcher}...
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{R, as in Resource}  
+\begin{center}
+ \Huge{\textbf{R}}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{R, as in Resource}
  \begin{lstlisting}
 package pl.project13;
 
@@ -123,8 +202,7 @@ public final class R {
  \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]
- \frametitle{R, as in Resource}  
+\begin{frame}[fragile] \frametitle{R, as in Resource}  
  Dodanie elementu id \textbf{wewnątrz widoku}, poprzez \textbf{+@id/}
 \begin{lstlisting}
  <EditText android:id="@+id/login" ... />
@@ -149,8 +227,7 @@ A skorzystamy z niego w np. \textbf{Activity}:
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}
-\frametitle{R, tips and tricks}
+\begin{frame}\frametitle{R, tips and tricks}
 
 \begin{itemize}
  \item nazwy wykorzystywane dla np. ID \textbf{nie muszą} być unikalne, @+id/login raz może oznaczać ten EditText a raz TextView.
@@ -158,8 +235,6 @@ A skorzystamy z niego w np. \textbf{Activity}:
  \pause \item Korzystamy raczej z 'notacji\_z\_podkresleniami\_tutaj'
  \pause \item W kontekście gdzie nie masz \textbf{findById}, skorzystaj z \textbf{android.content.res.Resources.getSystem().get\_\_\_\_\_()}
 \end{itemize}
-
-
 \end{frame}
 
 
@@ -246,10 +321,11 @@ Istnieje pewien ''problem'' z Google Maps oraz niektórymi innymi API. \\
 
 
 \begin{frame}\frametitle{MapsAPI key sign-up}
-  \centering Rejestrujemy są po klucz na: \\
-  \centering http://code.google.com/intl/pl-PL/android/maps-api-signup.html \\
-  _\\
-  \centering BitLy: \textbf{http://bit.ly/mapsapiandroid}\\
+\begin{center}
+  Rejestrujemy są po klucz na: \\
+  http://code.google.com/intl/pl-PL/android/maps-api-signup.html \\
+  BitLy: \textbf{http://bit.ly/mapsapiandroid}
+\end{center}
 \end{frame}
 
 
@@ -301,7 +377,6 @@ oraz (skoro chcemy wyświetlić mapkę)
 \end{itemize}
 
 \pause
-_\\
 Dodatkowo jeszcze deklarujemy wykorzystanie biblioteki maps:
 \begin{verbatim}
  <uses-library android:name="com.google.android.maps" />
@@ -314,7 +389,26 @@ Dodatkowo jeszcze deklarujemy wykorzystanie biblioteki maps:
 </application>
 <uses-permission/>
 \end{lstlisting}
-
 \end{frame}
+
+\begin{frame}\frametitle{Co na pewno się przyda?}
+\begin{itemize}
+ \item \textbf{LocationManager}
+ \item \textbf{MapView}
+ \item bardzo wygodny jest \textbf{MapActivity}
+ \item tip: dostępny jest \textbf{GPS} i \textbf{NETWORK} location provider
+\end{itemize}
+\end{frame}
+ 
+\begin{frame}[fragile]\frametitle{Zadanie: Google Maps App}
+\begin{itemize}
+ \item mapka, wycentrowana na obecnym położeniu telefonu
+ \item podczas odświeżenia lokalizacji ma pojawiać się Toast z nową lokalizacją (oraz recentrujemy mapkę)
+ \item obecne położenie ma być zaznaczone markerem: \textbf{http://bit.ly/gmapmark}
+ \item dodatkowe: w przypadku oddalenia się od miejsca X (dowolne) należy odpalić '\textbf{alarm}'
+ \item dodatkowe: zaskocz nas czymś!
+\end{itemize}
+\end{frame}
+
 
 \end{document}
