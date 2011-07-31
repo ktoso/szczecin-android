@@ -336,13 +336,52 @@ Tak tak, ponieważ zwyczajny hello world byłby nudny! :-)\\
 \textit{Testy są już dla Was przygotowane.}
 \end{frame}
 
-\begin{frame}\frametitle{Testowanie a sprawa Androida}
-Jest pewien problem z 'zwyczajnym testowaniem' aplikacji androidowych:
+\begin{frame}[fragile]\frametitle{Testowanie a sprawa Androida}
+Jest pewien problem z 'zwyczajnym testowaniem' aplikacji androidowych... Wcześniej czy później wpadnie się na:
+ 
  \begin{figure}[ch]
-  \verb|java.lang.RuntimeException: Stub!
+  \verb|java.lang.RuntimeException: Stub!|
  \end{figure}
+
+\begin{figure}[hc]
+\includegraphics[width=0.25\textwidth]{images/robolectric}\\
+\centering
+http://pivotal.github.com/robolectric/index.html
+\end{figure}
+
+Robolectric zastępuje implementacje rzucające te wyjątki domyślnymi (\verb|return 0 / null|).
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{Plain Old Testing}
+Jakby ktoś faktycznie chciał rzeźbić bardziej niskopoziomowo swoje testy,
+oto jak to zrobić: 
+
+\begin{verbatim} 
+http://developer.android.com/resources/
+                             tutorials/testing/
+                             activity_test.html
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Zadanie: Hello Szczecin!}
+\begin{itemize}
+ \item Prosty widok z przyciskiem oraz tekstem oraz polem tekstowym na czyjeś imię
+ \item Ma być możliwe podanie swojego imienia, wtedy text po wciśnięciu przycisku ma wyglądać ,,Hello \_\_\_\_!''
+ \item tip: korzystamy z \textbf{res/values/strings.xml} oraz \textbf{res/layouts/main.xml}
+ \item tip: Przydadzą się widżety: TextView, Button, EditText
+ \item \textbf{Uwaga! Skorzystamy z \textbf{Robolectric} to \textit{TDD}* aplikacji Androiowej!}
+\end{itemize}
+
+\begin{verbatim}
+ git clone git@github.com:ktoso/szczecin-android.git
+ cd szczecin-android/projects/simple-button
+\end{verbatim}
+
+\end{frame}
+
+% ------------------------------------------------------------------------------------------------
+% koniec zadania 1 -------------------------------------------------------------------------------
+% ------------------------------------------------------------------------------------------------
 
 % MORE FUN UI STUFF
 \begin{frame}[fragile]\frametitle{Pyszne tosty z masełkiem (android.widget.Toast)}
@@ -351,7 +390,6 @@ Jest pewien problem z 'zwyczajnym testowaniem' aplikacji androidowych:
  \centering
  \includegraphics[height=0.40\textheight,keepaspectratio=true]{images/toast}
 \end{figure}
-
 
  Przykład użycia: 
  \begin{lstlisting}
