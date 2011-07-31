@@ -35,6 +35,7 @@
     </content>
     <orderEntry type="library" exported="" scope="TEST" name="junit" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="robolectric" level="project" />
+    <orderEntry type="library" exported="" name="guice" level="project" />
     <orderEntry type="jdk" jdkName="Android 2.2 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

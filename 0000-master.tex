@@ -1,0 +1,53 @@
+\documentclass{beamer}
+\usetheme{default} 
+
+\setbeamercolor{structure}{fg=green!40!black} 
+\usebackgroundtemplate{
+    \centering\includegraphics[width=\paperwidth,height=\paperheight]{images/android_wall}
+}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{t1enc}
+\usepackage{default}
+\usepackage{listings}
+
+\lstset{language=java, basicstyle=\small, commentstyle=\color{gray}}
+\lstset{frame=single}
+
+\usefoottemplate{
+  \vbox{
+    \tinycolouredline{structure!25}{
+      \color{black}\textbf{
+        \insertshortauthor\hfill
+        Android @ Szczecin 2011
+      } 
+    }
+%    \tinycolouredline{structure}{
+%      \color{white}\textbf{\insertshorttitle}\hfill
+%    } 
+  }
+}
+
+\title{Android @ Szczecin \\ 2011}
+\author{Konrad Malawski \\ konrad.malawski@java.pl}
+
+\begin{document}
+
+% 1st steps, basic info about acitivities and views
+\input{0001-start.tex}
+
+% externalize the name we want to greet into shared properties
+\input{0002-shared-props.tex}
+
+% more fun with views
+\input{0003-more-fun-views.tex}
+
+
+% final task about maps and sms
+\input{0010-final-maps.tex}
+
+ 
+
+\end{document}

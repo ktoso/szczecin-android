@@ -1,40 +1,3 @@
-\documentclass{beamer}
-\usetheme{default} 
-
-\setbeamercolor{structure}{fg=green!40!black} 
-\usebackgroundtemplate{
-    \centering\includegraphics[width=\paperwidth,height=\paperheight]{images/android_wall}
-}
-\setbeamertemplate{navigation symbols}{}
-
-\usepackage[polish]{babel}
-\usepackage[utf8x]{inputenc}
-\usepackage{t1enc}
-\usepackage{default}
-\usepackage{listings}
-
-\lstset{language=java, basicstyle=\small, commentstyle=\color{gray}}
-\lstset{frame=single}
-
-\usefoottemplate{
-  \vbox{
-    \tinycolouredline{structure!25}{
-      \color{black}\textbf{
-        \insertshortauthor\hfill
-        Android @ Szczecin 2011
-      } 
-    }
-%    \tinycolouredline{structure}{
-%      \color{white}\textbf{\insertshorttitle}\hfill
-%    } 
-  }
-}
-
-\title{Android @ Szczecin \\ 2011}
-\author{Konrad Malawski \\ konrad.malawski@java.pl}
-
-\begin{document}
-
 \begin{frame}
 \titlepage
 \end{frame}
@@ -86,11 +49,8 @@
     \pause \item \textbf{AccountManager} - dla kont użytkownika, np. konto skype / gmail (system-wide)\\
     \pause \item \textbf{AlarmManager} - dla alarmów\\
     \pause \item \textbf{BatteryManager} - stan baterii\\
-    \pause \item \textbf{ClipboardManager} - schowek nie jest taki trywialny, ma całe własne API\\
-    \pause \item \textbf{ConnectivityManager} - możemy sprawdzić czy Internet jest dostępny. Via 3G czy WiFi?\\
-    \pause \item \textbf{LocationManager} - dostęp do pozycji (również GPS)\\
-    \pause \item nowe: \textbf{FragmentManager} - nowe api do umieszczania wiele activity na jednym ekranie (upraszczając)\\
-    \pause \item nowe: \textbf{DownloadManager} - zaawansowany menadżer pobierania plików w tle (w \textbf{Honeycomb})\\
+    \pause \item \textbf{ClipboardManager}, \textbf{ConnectivityManager}, \textbf{LocationManager}, 
+                 \textbf{FragmentManager}, \textbf{DownloadManager}
   \end{itemize}
 \end{frame}
 
@@ -369,7 +329,7 @@ http://developer.android.com/resources/
  \item Ma być możliwe podanie swojego imienia, wtedy text po wciśnięciu przycisku ma wyglądać ,,Hello \_\_\_\_!''
  \item tip: korzystamy z \textbf{res/values/strings.xml} oraz \textbf{res/layouts/main.xml}
  \item tip: Przydadzą się widżety: TextView, Button, EditText
- \item \textbf{Uwaga! Skorzystamy z \textbf{Robolectric} to \textit{TDD}* aplikacji Androiowej!}
+ \textbf{Skorzystamy z \textbf{Robolectric} to \textit{TDD}* aplikacji Androiowej!}
 \end{itemize}
 
 \begin{verbatim}
@@ -379,155 +339,3 @@ http://developer.android.com/resources/
 
 \end{frame}
 
-% ------------------------------------------------------------------------------------------------
-% koniec zadania 1 -------------------------------------------------------------------------------
-% ------------------------------------------------------------------------------------------------
-
-% MORE FUN UI STUFF
-\begin{frame}[fragile]\frametitle{Pyszne tosty z masełkiem (android.widget.Toast)}
-
-\begin{figure}[h]
- \centering
- \includegraphics[height=0.40\textheight,keepaspectratio=true]{images/toast}
-\end{figure}
-
- Przykład użycia: 
- \begin{lstlisting}
-Toast.makeText(getApplicationContext(),
-               "Halo Szczecin!", 
-               Toast.LENGTH_LONG)
-     .show();
- \end{lstlisting}
-
-\end{frame}
-
-\begin{frame}[fragile]
-\frametitle{Co więcej potrafi Toast?}
-\begin{lstlisting}
- Toast t = Toast.makeText(this, txt, LENGTH_SHORT);
-\end{lstlisting}
-
-\pause
-
-Można mu zmienić pozycję:
-\begin{lstlisting}
-t.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
-\end{lstlisting}
-
-\pause
-
-lub podmienić widok:
-\begin{lstlisting}
-View customView = findViewById(R.id.custom_view);
-/**/
-t.setView(customView)
- \end{lstlisting}
-
-\end{frame}
-
-
-% ------------------------------ MAPS ------------------------------ 
-\begin{frame}\frametitle{Google Maps}
-
-\begin{figure}[tc]
-  \centering
-  \includegraphics[height=0.45\textheight,keepaspectratio=true]{images/maps_icon}
-\end{figure}
-
-Istnieje pewien ''problem'' z Google Maps oraz niektórymi innymi API. \\
-\textbf{Nie są one dostępne bez odpowiedniego klucza oraz podpisania swojej aplikacji!}
-\end{frame}
-
-
-\begin{frame}\frametitle{MapsAPI key sign-up}
-\begin{center}
-  Rejestrujemy są po klucz na: \\
-  http://code.google.com/intl/pl-PL/android/maps-api-signup.html \\
-  BitLy: \textbf{http://bit.ly/mapsapiandroid}
-\end{center}
-\end{frame}
-
-
-\begin{frame}[fragile]\frametitle{Zdobywanie MD5 klucza 'debug'}
-\begin{lstlisting}
- keytool -list -alias androiddebugkey \
--keystore <path_to_debug_keystore>.keystore \
--storepass android -keypass android
-\end{lstlisting}
-\end{frame}
-
-
-\begin{frame}[fragile]\frametitle{Zdobywanie Md5 klucza 'release'}
-
-\textbf{keytool -list -keystore ~/android.keystore }
-
-\begin{lstlisting}
-Keystore type: JKS
-Keystore provider: SUN
-
-Your keystore contains 1 entry
-android-key, Jul 3, 2011, PrivateKeyEntry, 
-Certificate fingerprint (MD5): AA:AA:AA:AA...
-\end{lstlisting}
-
-\end{frame}
-
-
-\begin{frame}\frametitle{Oto co dostaniemy:}
-\begin{figure}
- \centering
- \includegraphics[width=\textwidth,keepaspectratio=true]{images/maps_get_key}
-\end{figure} 
-\end{frame}
-
-
-\begin{frame}[fragile]\frametitle{Permissions}
-
-W tym przypadku interesują następujące \verb|<uses-permission/>|:
-
-\begin{itemize}
- \item \verb|android.permission.ACCESS_COARSE_LOCATION|
- \item \verb|android.permission.ACCESS_FINE_LOCATION|
-\end{itemize}
-
-oraz (skoro chcemy wyświetlić mapkę)
-\begin{itemize}
- \item \verb|android.permission.INTERNET|
-\end{itemize}
-
-\pause
-Dodatkowo jeszcze deklarujemy wykorzystanie biblioteki maps:
-\begin{verbatim}
- <uses-library android:name="com.google.android.maps" />
-\end{verbatim}
-
-\textbf{Uwaga!}
-\begin{lstlisting}
-<application>
-  <uses-library/> 
-</application>
-<uses-permission/>
-\end{lstlisting}
-\end{frame}
-
-\begin{frame}\frametitle{Co na pewno się przyda?}
-\begin{itemize}
- \item \textbf{LocationManager}
- \item \textbf{MapView}
- \item bardzo wygodny jest \textbf{MapActivity}
- \item tip: dostępny jest \textbf{GPS} i \textbf{NETWORK} location provider
-\end{itemize}
-\end{frame}
- 
-\begin{frame}[fragile]\frametitle{Zadanie: Google Maps App}
-\begin{itemize}
- \item mapka, wycentrowana na obecnym położeniu telefonu
- \item podczas odświeżenia lokalizacji ma pojawiać się Toast z nową lokalizacją (oraz recentrujemy mapkę)
- \item obecne położenie ma być zaznaczone markerem: \textbf{http://bit.ly/gmapmark}
- \item dodatkowe: w przypadku oddalenia się od miejsca X (dowolne) należy odpalić '\textbf{alarm}'
- \item dodatkowe: zaskocz nas czymś!
-\end{itemize}
-\end{frame}
-
-
-\end{document}

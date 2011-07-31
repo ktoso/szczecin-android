@@ -1,0 +1,226 @@
+% \documentclass{beamer}
+% \usetheme{default} 
+% 
+% \setbeamercolor{structure}{fg=green!40!black} 
+% \usebackgroundtemplate{
+%     \centering\includegraphics[width=\paperwidth,height=\paperheight]{images/android_wall}
+% }
+% \setbeamertemplate{navigation symbols}{}
+% 
+% \usepackage[polish]{babel}
+% \usepackage[utf8x]{inputenc}
+% \usepackage{t1enc}
+% \usepackage{default}
+% \usepackage{listings}
+% 
+% \lstset{language=java, basicstyle=\small, commentstyle=\color{gray}}
+% \lstset{frame=single}
+% 
+% \usefoottemplate{
+%   \vbox{
+%     \tinycolouredline{structure!25}{
+%       \color{black}\textbf{	
+%         \insertshortauthor\hfill
+%         Android @ Szczecin 2011
+%       } 
+%     }
+% %    \tinycolouredline{structure}{
+% %      \color{white}\textbf{\insertshorttitle}\hfill
+% %    } 
+%   }
+% }
+% 
+% \title{Android @ Szczecin \\ 2011}
+% \author{Konrad Malawski \\ konrad.malawski@java.pl}
+% 
+% \begin{document}
+
+
+\begin{frame}[fragile]\frametitle{Android Logger}
+Logujemy przy pomocy \textbf{android.util.Log}.\\
+Korzystamy z niego następująco:
+
+\begin{lstlisting}
+class MyClass {
+  private final String TAG = getClass()
+                             .getSimpleName();
+
+  void doStuff() {
+    Log.d(TAG, "doing stuff..."); // debug
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Android Log levels}
+Dostępne poziomy logowania to:
+\begin{itemize}
+ \item \verb|Log.v()| - VERBOSE
+ \item \verb|Log.d()| - DEBUG
+ \pause \item \verb|Log.i()| - INFO
+ \pause \item \verb|Log.w()| - WARN
+ \pause \item \verb|Log.e()| - ERROR
+ \pause \item \verb|Log.wtf()| \pause - \textbf{W}hat a \textbf{T}errible \textbf{F}ailure
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}\frametitle{Sposoby przechowywania danych}
+\begin{itemize}
+% http://developer.android.com/guide/topics/data/data-storage.html
+ \item  \textbf{Shared Preferences} - Prosty KeyValue store, idealny dla prostych ustawień aplikacji etc
+ \pause \item \textbf{Internal Storage} - Zapisywanie plików w swoim formacie na \textbf{wewnątrznej pamięci} urządzenia (dobre dla cache obrazków etc)
+ \pause \item \textbf{External Storage} - Zapisywanie plików w swoim formacie na np. \textbf{karcie SD} (dobre dla cache obrazków etc)
+ \pause \item \textbf{SQLite Database} - Zwyczajna instancja bazy danych SQLite - m.in. tym sposobem dostajemy informacje o kontaktach
+ \pause \item \textbf{Cloud Storage} - Nie trzymamy danych lokalnie, pchamy i pobieramy wszystko z chmurki
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Shared Preferences}
+\begin{center}
+ \Huge{Shared Preferences} 
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{SharedPreferences - API}
+Uzyskanie instancji:
+\begin{lstlisting}
+// zawsze zadziala:
+Context ctx = getApplicationContext(); 
+
+// w Activity lub Service jest latwiej:
+// ctx = this;
+
+SharedPreferences prefs = PreferenceManager
+                 .getDefaultSharedPreferences(ctx);
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{SharedPreferences - Read API}
+ Przykład \textbf{odczytania} zmiennej:
+\begin{lstlisting}
+ // oto jak korzystac z @strings/ w Activity
+ String key = getString(R.string.key_sound_notif);
+
+ String s = preferences.getString(key, "undefined");
+ 
+ // analogicznie dla Integer/Long/Double/StringSet
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{SharedPreferences - Write API}
+ Przykład \textbf{zapisania} zmiennej:
+\begin{lstlisting}
+SharedPreferences.Editor editor = preferences.edit();
+
+editor.putString(key, "new value");
+// analogicznie dla Integer/StringSet/Double ...
+
+editor.commit();
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Shared Preferences}
+ Shared w sensie ,,wewnątrz \textbf{naszej} aplikacji'', nie między wieloma.\\
+ SharedPreferences zapisywane są w: \\
+ \begin{center}
+  \texttt{/data/data/pl.project13.myapp/shared\_prefs} 
+ \end{center}
+
+\pause
+
+Można się tam dobrać gdy się jest \textbf{root}:
+\begin{verbatim}
+$ abd shell
+> cat /data/data/pl.project13.myapp/shared_prefs
+
+<map>
+ <string name="pass">zomg_its_plain_text</string>
+ <!-- ... -->
+</map>
+\end{verbatim}
+\end{frame}
+
+% SQL kontakty http://developer.android.com/guide/topics/providers/content-providers.html
+% todo można by tutaj jeszcze o SQL i poszukiwaniu kontaktów
+
+\begin{frame}\frametitle{Security a SharedPreferences}
+\begin{center}
+ Wniosek jest prosty:\\ 
+ Szyfrujemy ważne rzeczy trzymane gdziekolwiek na komórce.
+\end{center}
+\end{frame}
+
+
+\begin{frame}\frametitle{Robo Guice - Google Guice for Android}
+ \begin{figure}[c]
+ \includegraphics[width=0.5\textwidth]{images/roboguice}  
+ \end{figure}
+ 
+ \begin{center}
+  Google Guice = \textbf{JSR-330} Dependency Injection for Java
+ \end{center}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{RoboGuice - co zyskujemy?}
+Przed:
+\begin{lstlisting}
+class Act extends Activity {
+ SharedPreferences prefs;
+ EditText mLogin;
+ public void onCreate(Bundle savedState) {
+  prefs = PreferenceManager
+          .getDefaultSharedPreferences(this);
+  mLogin = (EditText) findById(R.id.login);
+ }
+}
+\end{lstlisting}
+
+\pause
+
+Po:
+\begin{lstlisting}
+class Act extends RoboActivity {
+ @Inject SharedPreferences prefs;
+ @InjectView(R.id.login) EditText mLogin;
+ public void onCreate(Bundle savedState){ /**/ }
+}
+\end{lstlisting}
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Zapięcie RoboGuice w 4 krokach:}
+\begin{enumerate}
+ \item własny \textbf{App extends RoboApplication} gdzie nadpisujemy \textbf{\#addApplicationModules}
+ \pause \item własny \textbf{SzczecinModule extends AbstractAndroidModule}, który dodajemy powyżej
+ \pause \item dodanie \verb|<application android:name=".App"| dla naszej aplikacji w \textbf{AndroidManifest.xml}
+ \pause \item zamiana \verb|MyActivity extends Activity| na: \verb|MyActivity extends RoboActivity|
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Zadanie: Kroczki do przodu}
+\begin{itemize}
+ \item podpinamy \textbf{RoboGuice}
+ \item zapisujemy \textbf{imię użytkownika} w \textbf{SharedPreferences}
+ \item podpinamy \textbf{res/menu/menu.xml} (1 element menu, o nazwie 'settings') (tip: robi się to w \textbf{onCreateOptionsMenu()})
+\end{itemize} 
+
+tip:
+\begin{verbatim}
+bindConstant()
+.annotatedWith(SharedPreferencesName.class)
+.to("pl.project13");
+\end{verbatim}
+\end{frame}
+
+
+
+
+
+% \end{document}
