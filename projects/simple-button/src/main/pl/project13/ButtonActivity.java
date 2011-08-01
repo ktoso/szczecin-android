@@ -1,6 +1,7 @@
 package pl.project13;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -92,7 +93,14 @@ public class ButtonActivity extends RoboActivity {
     int itemId = item.getItemId();
 
     switch (itemId){
+      case R.id.preferences_menu_item:
+        startActivity(new Intent(this, SettingsActivity.class));
+        break;
       case R.id.click_me_menu_item:
+        Intent intent = new Intent(this, TasksActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("username", "Konrad");
+        startActivity(intent);
         break;
       default:
         Log.i(TAG, "Some weird action was requested");

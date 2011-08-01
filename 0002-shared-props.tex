@@ -1,39 +1,48 @@
-% \documentclass{beamer}
-% \usetheme{default} 
-% 
-% \setbeamercolor{structure}{fg=green!40!black} 
-% \usebackgroundtemplate{
-%     \centering\includegraphics[width=\paperwidth,height=\paperheight]{images/android_wall}
-% }
-% \setbeamertemplate{navigation symbols}{}
-% 
-% \usepackage[polish]{babel}
-% \usepackage[utf8x]{inputenc}
-% \usepackage{t1enc}
-% \usepackage{default}
-% \usepackage{listings}
-% 
-% \lstset{language=java, basicstyle=\small, commentstyle=\color{gray}}
-% \lstset{frame=single}
-% 
-% \usefoottemplate{
-%   \vbox{
-%     \tinycolouredline{structure!25}{
-%       \color{black}\textbf{	
-%         \insertshortauthor\hfill
-%         Android @ Szczecin 2011
-%       } 
-%     }
-% %    \tinycolouredline{structure}{
-% %      \color{white}\textbf{\insertshorttitle}\hfill
-% %    } 
-%   }
-% }
-% 
-% \title{Android @ Szczecin \\ 2011}
-% \author{Konrad Malawski \\ konrad.malawski@java.pl}
-% 
-% \begin{document}
+\documentclass{beamer}
+\usetheme{default} 
+
+\setbeamercolor{structure}{fg=green!40!black} 
+\usebackgroundtemplate{
+    \centering\includegraphics[width=\paperwidth,height=\paperheight]{images/android_wall}
+}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{t1enc}
+\usepackage{default}
+\usepackage{listings}
+
+\lstset{language=java, basicstyle=\small, commentstyle=\color{gray}}
+\lstset{frame=single}
+
+\usefoottemplate{
+  \vbox{
+    \tinycolouredline{structure!25}{
+      \color{black}\textbf{	
+        \insertshortauthor\hfill
+        Android @ Szczecin 2011
+      } 
+    }
+%    \tinycolouredline{structure}{
+%      \color{white}\textbf{\insertshorttitle}\hfill
+%    } 
+  }
+}
+
+\title{Android @ Szczecin \\ 2011}
+\author{Konrad Malawski \\ konrad.malawski@java.pl}
+
+\begin{document}
+
+
+\begin{frame}
+ \begin{center}
+  \Huge{Logger}
+ \end{center}
+
+\end{frame}
+
 
 
 \begin{frame}[fragile]\frametitle{Android Logger}
@@ -62,6 +71,13 @@ Dostępne poziomy logowania to:
  \pause \item \verb|Log.e()| - ERROR
  \pause \item \verb|Log.wtf()| \pause - \textbf{W}hat a \textbf{T}errible \textbf{F}ailure
 \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+ \begin{center}
+  \Huge{Data Storage}
+ \end{center}
 
 \end{frame}
 
@@ -155,6 +171,14 @@ $ abd shell
 \end{center}
 \end{frame}
 
+\begin{frame}
+ \begin{center}
+  \Huge{RoboGuice}
+ \end{center}
+
+\end{frame}
+
+
 
 \begin{frame}\frametitle{Robo Guice - Google Guice for Android}
  \begin{figure}[c]
@@ -209,6 +233,7 @@ class Act extends RoboActivity {
  \item podpinamy \textbf{RoboGuice}
  \item zapisujemy \textbf{imię użytkownika} w \textbf{SharedPreferences}
  \item podpinamy \textbf{res/menu/menu.xml} (1 element menu, o nazwie 'settings') (tip: robi się to w \textbf{onCreateOptionsMenu()})
+ \item 
 \end{itemize} 
 
 tip:
@@ -219,8 +244,202 @@ bindConstant()
 \end{verbatim}
 \end{frame}
 
+\begin{frame}
+\begin{center}
+ \Huge{PreferenceActivity}
+\end{center}
+\end{frame}
+
+\begin{frame}\frametitle{PreferenceActivity}
+\begin{center}
+Ręczne edytowanie SharedPreferences szybko robi się nudne...\\
+Wtedy właśnie korzystamy z PreferenceActivity:
+ \begin{figure}
+ \includegraphics{images/preference_activity}
+ \end{figure}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{/res/\textbf{xml/preferences.xml}}
+\begin{lstlisting} 
+<PreferenceScreen xmlns:android="http://...">
+  <PreferenceCategory 
+      android:title="Ustawienia Usera"
+      android:key="user_preferences">
+       
+    <CheckBoxPreference 
+       android:key="@string/pref_key_notify_user"
+       android:summary="Powiadamiaj uzytkownika"
+       android:title="Wlacz powiadomienia" 
+       android:defaultValue="true"
+    />
+            
+  </PreferenceCategory>
+<!-- ... -->
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{/res/\textbf{xml/preferences.xml}}
+\begin{lstlisting}
+<!-- ... -->
+  <PreferenceCategory 
+      android:title="Ustawienia pozostale"
+      android:key="other_preferences">
+
+    <EditTextPreference
+        android:key="@string/pref_key_welcome_msg"
+        android:title="Wiadomosc powitalna" 
+        android:summary="Wiadomosc jaka zostanie 
+                         powitany uzytkownik"
+        android:dialogTitle="Wiadomosc powitalna"
+        android:dialogMessage="Wpisz wiadomosc:"    
+        android:defaultValue="Jak sie masz, " />
+  </PreferenceCategory>
+</PreferenceScreen>
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{PreferenceActivity - implementacja}
+\begin{center}
+W przeciwieństwie do powyższych 2 slajdów xml, tutaj kodu jest malutko:
+\end{center}
+\begin{lstlisting}
+public class SettingsActivity 
+                       extends PreferenceActivity {
+
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    addPreferencesFromResource(R.xml.preferences);
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}\frametitle{Jak uruchomić inną Activity?}
+\begin{center}
+I w tym miejscu czas poznać:
+\large{Incencje}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+ \Huge{Intent}
+\end{center}
+\end{frame}
+
+\begin{frame}\frametitle{Intent - czyli ,,Intencja wykonania X''}
+Intent'y wykorzystywane są bardzo bardzo intensywnie w androidzie.\\
+Poprzez intent działają chociażby:
+\begin{itemize}
+ \item Otworzenie linka
+ \pause \item Wysłanie/odebranie SMSa \pause (Intent albo przez SMSManager)
+ \pause \item Uruchomienie usługi (Service)
+ \pause \item Uruchomienie Activity
+ \pause \item Przekazanie danych innej części aplikacji
+ \pause \item nasłuchiwanie na ,,\textbf{system-wide}'' zdarzenia
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Intent - czyl ,,Intencja wykonania X''}
+\begin{center}
+ \textit{Intent = ,,Chciałbym zrobić X''.}
+
+\pause
+Chciałbym otworzyć przeglądarkę www:
+\end{center}
+
+\begin{lstlisting}
+String action = Intent.ACTION_VIEW; 
+Uri uri = Uri.parse("http://www.geecon.org")
+
+Intent viewIntent = new Intent(action, uri);
+startActivity(viewIntent); // uruchom
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Intent - przykłady cd.}
+\begin{center}
+Chcę wysłać SMSa, przy pomocy \textbf{jakiejś aplikacji}, \\
+która potrafi się tym zająć.
+\end{center}
+
+\begin{lstlisting}
+Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+
+sendIntent.putExtra("sms_body", "Halo Szczecin!"); 
+sendIntent.setType("vnd.android-dir/mms-sms");
+
+startActivity(sendIntent);
+\end{lstlisting}
+
+\pause
+SMSy również można wysyłać przy pomocy \textbf{SMSManager}.
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Intent-Filter - ,,Słuchacze''}
+Aby ,,słuachć'' na globalne Intent trzeba dodać w \textbf{AndroidManifest.xml}:
+\begin{lstlisting}
+<application ...>
+  <receiver android:name=".SmsReceiver"> 
+    <intent-filter> 
+      <action android:name=
+        "android.provider.Telephony.SMS_RECEIVED" /> 
+    </intent-filter> 
+  </receiver>
+</application>
+\end{lstlisting}
+
+\pause
+
+\textbf{MAIN} oraz \textbf{LAUNCHER} dla Activity, definiujące główne Activity naszej aplikacji również rejestrujemy przez Intent-Filtry!
+
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{IntentReciever - przykład dla \textbf{SMS\_RECEIVED}}
+\begin{lstlisting}
+public class SmsReceiver extends BroadcastReceiver {
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    Bundle bundle = intent.getExtras();
+    if(bundle == null) return;
+
+    Object[] pdus = (Object[]) bundle.get("pdus");
+
+    for (Object aPdus : pdus) {
+      SmsMessage msg;
+      msg = SmsMessage.createFromPdu((byte[]) aPdus);
+      
+      String from = msg.getOriginatingAddress();
+      String body = msg.getMessageBody().toString();
+      Log.i(TAG, format(%s: %s, from, body));                     
+    }
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}\frametitle{Intent - fun facts}
+\begin{itemize}
+ \item \textbf{Intent} może być obsłużony przez dowolną aplikację - nie tylko ,,nasze''
+ \pause \item W przypadku gdy \textbf{Intent} natrafi 2+ ,,Recievery'', pyta użytkownika którego ma użyć. Przykład: \\
+              \pause I: ,,Otwórz ten link.''\\
+              \pause A: ,,W Operze czy w Firefoxie?''
+              
+             
+ \pause \item \textbf{Intent} może nieść ze sobą masę dodatkowych informacji oraz flag. Vide metody klasy Intent.
+\end{itemize}
+\end{frame}
 
 
 
 
-% \end{document}
+
+
+
+
+
+
+\end{document}
