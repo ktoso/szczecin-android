@@ -10,12 +10,12 @@ import static com.google.common.collect.Lists.newArrayList;
  *
  * @author Konrad Malawski
  */
-public class SlowAction {
+public class LazyWorker {
 
   Random rnd = new Random(System.currentTimeMillis());
 
-  public List<String> getIDs() {
-    sleep(10000);
+  public List<String> getData() {
+//    sleep(10000);
 
     return newArrayList("Kraków", "Warszawa", "Poznań", "Szczecin", "Gliwice", "Krynica" ,
                         "Kołobrzeg", "Zakopane", "Katowice", "Przemyśl", "Łódź", "Świerk",

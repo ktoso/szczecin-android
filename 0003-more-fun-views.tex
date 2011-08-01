@@ -174,7 +174,7 @@ public boolean onOptionsItemSelected(MenuItem item) {
 
  Przykład użycia: 
  \begin{lstlisting}
-Toast.makeText(getApplicationContext(),
+Toast.makeText(getApplicationContext(), // note: explain Context !
                "Halo Szczecin!", 
                Toast.LENGTH_LONG)
      .show();
@@ -185,7 +185,7 @@ Toast.makeText(getApplicationContext(),
 \begin{frame}[fragile]
 \frametitle{Co więcej potrafi Toast?}
 \begin{lstlisting}
- Toast t = Toast.makeText(this, txt, LENGTH_SHORT);
+ Toast t = Toast.makeText(MyActivity.this, txt, LENGTH_SHORT);
 \end{lstlisting}
 
 \pause
@@ -272,46 +272,152 @@ dialog.hide();
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Super Fast Java Reminder - \textbf{this}}
-Pamiętamy dlaczego w poprzednim przykładzie powinno (często) być \textbf{MyActivity.this}?
+\begin{frame}\frametitle{Slooooooooow stuff}
+Dotychczas siedzieliśmy na tzw. ,,Main Thread''.
+\begin{itemize}
+ \item Zajmuje się on m.in. rysowaniem komponentów
+ \item Jest współdzielony między Activity oraz Service!
+ \item \textbf{,,Zajęcie'' głównego wątku na zbyt długo spowoduje UBICIE naszej aplikacji!}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Slooooooooow stuff}
+Introducing: \textbf{LazyWorker.java}:
 \begin{lstlisting}
-class Outer extends Activity { 
+public class LazyWorker {
+  List<String> getData() {
+    sleep(10000); 
 
-  void onCreate(Bundle savedState) {
-
-    new OnClickListener() {
-      public void onClick(View view) {
-        new Intent(this, /*...*/); // ZLE!
-      }
-    }
-
+    return data;
   }
+  
+  void sleep(int howLong) { /**/ }
 }
+\end{lstlisting}
+Będzie on udawał pobieranie danych z sieci.
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Fun Fact: \textbf{NetworkOnMainThreadException}}
+
+Od wersji 3.0, Android \textbf{wymusza} korzystanie z wątków celem robienia czegokolwiek
+związanego z siecią.\\ 
+W przypadku zawołania np. \verb|GET(''http://google.com'');| na będąc na MainThread, 
+zostanie rzucony wyjątek:
+
+\begin{center}
+  \textbf{android.os.NetworkOnMainThreadException}
+ \end{center}
+
+\begin{flushright}
+\small{GET - fikcyjna implementacja pobierająca content z sieci}
+\end{flushright}
+\end{frame}
+
+\begin{frame}\frametitle{Więc... new Thread()?}
+\begin{center}
+ ,,My się wątków nie boimy!''\\
+ oświadczył dzielny rycerz.\\
+
+\pause 
+\ \\
+\ \\
+Szybko jednak zmienił zdanie, znajdywszy się w paszczy Mutexowego smoka.
+\end{center}
+\end{frame}
+
+\begin{frame}
+ \begin{center}
+  \Huge{AsyncTask}
+ \end{center}
+\end{frame}
+
+\begin{frame}
+ \begin{center}
+  \Huge{AsyncTask\\ <Params, Progress, Result>}
+ \end{center}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{AsyncTask<Params, Progress, Result>}
+Jedna z śliczniejszych abstrakcji na zadania asynchroniczne w API Androida.\\
+\ \\
+Podstawowa implementacja wygląda tak:
+
+\begin{lstlisting}
+new AsyncTask<Void, Void, Void>(){
+  Void doInBackground(Void... voids){
+    /**/
+  }
+}.execute();
+\end{lstlisting}
+
+\pause
+
+Anyone remember \textbf{java.lang.Void}? :-)
+
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{AsyncTask<Params, Progress, Result>}
+Typowe zastosowanie, ,,pobieracz'' danych:
+\begin{lstlisting}
+List<String> datas = 
+  new AsyncTask<Void, Integer, List<String>>() {
+    @Override
+    protected List<String> doInBackground(Void... voids) {
+      return /* get stuff from the internet */;
+    }
+  }.execute() // not blocking
+   .get(); // blocking
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]\frametitle{Super Fast Java Reminder - \textbf{this}}
-Oto jak dobrać się do ,,zewnętrznego'' \textbf{this}:
+\begin{frame}[fragile]\frametitle{AsyncTask<Params, Progress, Result>}
+Typowe zastosowanie, ,,worker'' + ,,zestaw danych'':
 \begin{lstlisting}
-class Outer extends Activity { 
+String[] data = getData();
 
-  void onCreate(Bundle savedState) {
+new AsyncTask<String, Integer, Void>() {
 
-    new OnClickListener() {
-      public void onClick(View view) {
-        new Intent(Outer.this, /*...*/); // Dobrze
-      }
-    }
-
+  protected void onPreExecute(){
+    Log.i(TAG, "Warning, will download the internet!")
   }
-}
+
+  protected List<String> doInBackground(Void... voids) {
+    return /* get stuff from the internet */;
+  }
+
+  protected void onPreExecute(Void result) { // result
+    Log.i(TAG, "Wow, we've downloaded the web!")
+  }
+}.execute(data); // varargs!
+//.execute("a", "b", "c", "d"); // przypomnienie
 \end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]\frametitle{AsyncTask + ProgressDialog}
+\begin{lstlisting}
+final ProgressDialog d
+             = new ProgressDialog(MyAct.this);
+d.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+d.setMessage("Loading details...");
+d.setCancelable(false);
+\end{lstlisting}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%todo opisac HANDLER oraz jak AsyncTask moze publikowac progress %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\begin{frame}[fragile]\frametitle{AsyncTask + ProgressDialog}
+\begin{lstlisting}
+new AsyncTask<String, Integer, Void>(){
 
+}
+\end{lstlisting}
 
+\end{frame}
 
 
 \end{document}

@@ -16,7 +16,5 @@ public class SettingsActivity extends RoboPreferenceActivity {
     super.onCreate(savedInstanceState);
 
     addPreferencesFromResource(R.xml.preference);
-
-    new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.novoda.com"));
   }
 }
