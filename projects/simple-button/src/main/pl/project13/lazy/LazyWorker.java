@@ -23,7 +23,7 @@ public class LazyWorker {
   }
 
   public Details getDetails(String id){
-    sleep(500);
+    sleep(5000);
 
     return new Details(id, rnd.nextInt()+1000);
   }

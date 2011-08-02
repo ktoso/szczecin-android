@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 import com.google.inject.Inject;
 import pl.project13.lazy.Details;
@@ -27,7 +28,7 @@ public class TasksActivity extends RoboListActivity {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    Toast.makeText(this, "Hello, from " + this.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
+//    Toast.makeText(this, "Hello, from " + this.getClass().getSimpleName(), Toast.LENGTH_LONG).show();
 
     setContentView(R.layout.list);
 
@@ -52,7 +53,7 @@ public class TasksActivity extends RoboListActivity {
       e.printStackTrace();
     }
 
-    final ProgressDialog progressDialog = new ProgressDialog(this);
+    final ProgressDialog progressDialog = new ProgressDialog(TasksActivity.this);
     progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
     progressDialog.setMessage("Loading details...");
     progressDialog.setCancelable(false);
@@ -64,25 +65,24 @@ public class TasksActivity extends RoboListActivity {
       new AsyncTask<String, Integer, Void>() {
         @Override
         protected void onPreExecute() {
-          handler.post(new Runnable() {
-            public void run() {
+//          handler.post(new Runnable() {
+//            public void run() {
               progressDialog.show();
-            }
-          });
+//            }
+//          });
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-          handler.post(new Runnable() {
-            public void run() {
-              progressDialog.hide();
-            }
-          });
+//          handler.post(new Runnable() {
+//            public void run() {
+          progressDialog.dismiss();
+//            }
+//          });
         }
 
         @Override
         protected Void doInBackground(String... strings) {
-          int all = strings.length;
           int i = 1;
           for (final String data : finalDatas) {
             final Details details = lazyWorker.getDetails(data);

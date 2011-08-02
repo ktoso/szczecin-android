@@ -403,6 +403,7 @@ d.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 d.setMessage("Loading details...");
 d.setCancelable(false);
 \end{lstlisting}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -412,12 +413,157 @@ d.setCancelable(false);
 
 \begin{frame}[fragile]\frametitle{AsyncTask + ProgressDialog}
 \begin{lstlisting}
-new AsyncTask<String, Integer, Void>(){
+Handler handler = new Handler();
 
+final List<String> finalData = data;
+progressDialog.setMax(data.size());
+
+new AsyncTask<String, Integer, Void>() {
+  @Override
+  protected void onPreExecute() { /**/ }
+
+  @Override
+  protected void onPostExecute(Void aVoid) { /**/ }
+
+  @Override
+  protected Void doInBackground(String... strings) { /**/ }
+
+  @Override
+  protected void onProgressUpdate(Integer... values) { /**/ }
+}.execute(data);
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{AsyncTask + ProgressDialog}
+Simple version: 
+\begin{lstlisting}
+@Override
+protected void onPreExecute() {
+  progressDialog.show();
 }
 \end{lstlisting}
-
+\verb|progressDialog| musi być zadeklatowany final powyżej.
 \end{frame}
+
+\begin{frame}[fragile]\frametitle{AsyncTask + ProgressDialog}
+Przy pomocy statycznego pomocnika:
+\begin{lstlisting}
+
+ProgressDialog dialog;
+
+@Override
+protected void onPreExecute() {
+  this.dialog = ProgressDialog
+                   .show(TasksActivity.this, 
+                         "Loading", 
+                         "Loading details...", 
+                         true, 
+                         false);
+}
+\end{lstlisting}
+Unikamy zaśmiecania scope powyżej finalną zmienną.\\
+Dałoby się również tutaj tradycyjnym \textbf{new} zrobić to samo.
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{AsyncTask + ProgressDialog (\textbf{Overkill}, do not use)}
+Sposób z handlerem, na wypadek źle zbindowanego ProgressDialog z którym musimy sobie jakoś poradzić. \\
+Nie koniecznie w tej sytuacji dobre wyjście, ale to tylko przykład:
+\begin{lstlisting}
+@Override
+protected void onPreExecute() {
+  handler.post(new Runnable() {
+    @Override
+    public void run() {
+      dialog.show();
+    }
+  });
+}
+\end{lstlisting}
+Jest to o tyle ciekawe że \textbf{handler}owi możemy wysyłać na przykład tylko proste wiadomości zamiast Runnable etc.
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{AsyncTask + ProgressDialog}
+Jedyna z omawianych metod wołana w tle (nie na ,,UIThread'').
+\begin{lstlisting}
+@Override
+protected Void doInBackground(String... strings) {
+  int i = 1;
+  for (final String data : finalDatas) {
+    Details details = lazyWorker.getDetails(data);
+    //...
+
+    publishProgress(i++);
+  }
+
+  return null;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{AsyncTask + ProgressDialog}
+Tutaj przydaje się handler, jeślibyśmy chcieli notyfikować co właśnie ,,opracowuje'' doInBackground.
+\begin{lstlisting}
+@Override
+protected Void doInBackground(String... strings) {
+  int i = 1;
+  for (final String data : finalDatas) {
+    final Details details = lazyWorker.getDetails(data);
+
+    handler.post(new Runnable() {
+      public void run() {
+        Toast.makeText(TasksActivity.this, 
+                       "processed: " + details, 
+                       Toast.LENGTH_SHORT)
+            .show();
+      }
+    });
+    publishProgress(i++);
+  }
+
+  return null;
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{AsyncTask + ProgressDialog}
+,,Publikowanie postępów'':
+\begin{lstlisting}
+    doInBackground...  doInBackground...
+       |   \               /  |
+       |    publishProgress   | // async
+       V                      V
+  onProgressUpdate    onProgressUpdate
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{AsyncTask + ProgressDialog}
+Odbieranie informacji o postępach, ponownie wracamy na \textbf{UIThread} tutaj.
+\begin{lstlisting}
+@Override
+protected void onProgressUpdate(Integer... values) {
+  progressDialog.setProgress(values[0]);
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{AsyncTask + ProgressDialog}
+\begin{lstlisting}
+@Override
+protected void onPostExecute(Void aVoid) {
+  progressDialog.dismiss();
+}
+\end{lstlisting}
+Istnieje również \textbf{ProgressDialog\#hide()}, jednak w tym 
+przypadku chcemy zwolnić również zasoby po tym dialogu.
+\end{frame}
+
+
+
+
+
+
 
 
 \end{document}
