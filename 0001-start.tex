@@ -1,6 +1,57 @@
+\documentclass{beamer}
+\usetheme{default} 
+
+\setbeamercolor{structure}{fg=green!40!black} 
+\usebackgroundtemplate{
+    \centering\includegraphics[width=\paperwidth,height=\paperheight]{images/android_wall}
+}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{t1enc}
+\usepackage{default}
+\usepackage{listings}
+
+\lstset{language=java, basicstyle=\small, commentstyle=\color{gray}}
+\lstset{frame=single}
+
+\usefoottemplate{
+  \vbox{
+    \tinycolouredline{structure!25}{
+      \color{black}\textbf{	
+        \insertshortauthor\hfill
+        Android @ Szczecin 2011
+      } 
+    }
+%    \tinycolouredline{structure}{
+%      \color{white}\textbf{\insertshorttitle}\hfill
+%    } 
+  }
+}
+
+\title{Android @ Szczecin \\ 2011}
+\author{Konrad Malawski \\ konrad.malawski@java.pl}
+
+\begin{document}
+
+
+
+
+
+
+
 \begin{frame}
 \titlepage
 \end{frame}
+
+\begin{frame}
+ \begin{center}
+  \Huge{Hello!}
+ \end{center}
+
+\end{frame}
+
 
 % \begin{frame}
 %  \frametitle{me.about();}
@@ -21,6 +72,14 @@
   \centering
   \includegraphics[width=\textwidth,height=\textheight]{images/about_me_slide}
 \end{frame}
+
+\begin{frame}
+ \begin{center}
+  \Huge{You?}
+ \end{center}
+
+\end{frame}
+
 
 
 \begin{frame}\frametitle{Architektura}
@@ -43,23 +102,54 @@
  \end{itemize}
 \end{frame}
 
-\begin{frame}\frametitle{Przykłady Managerów}
-  \begin{itemize}
-    \item \textbf{NotificationManager} - dla powiadomień\\
-    \pause \item \textbf{AccountManager} - dla kont użytkownika, np. konto skype / gmail (system-wide)\\
-    \pause \item \textbf{AlarmManager} - dla alarmów\\
-    \pause \item \textbf{BatteryManager} - stan baterii\\
-    \pause \item \textbf{ClipboardManager}, \textbf{ConnectivityManager}, \textbf{LocationManager},
-                 \textbf{FragmentManager}, \textbf{DownloadManager}
-  \end{itemize}
+\begin{frame}
+\begin{center}
+ \Huge{The ,,Glue'':}\\ 
+ \Huge{AndroidManifest.xml}
+\end{center}
+
 \end{frame}
 
-% \begin{frame} \frametitle{Good News, nie będzie tsunami wyliczeń nazw klas}
-% \begin{center}
-%  Obiecuję, że nie będzie już slajdów takich jak poprzedni :-) \\
-%  \textbf{Konkrety, obrazki, kodzenie!}
-% \end{center}
-% \end{frame}
+
+\begin{frame}[fragile]\frametitle{AndroidManifest.xml}
+\begin{lstlisting}
+<manifest xmlns:android="http://..."
+     package="pl.project13.android.github.notify"
+     android:versionCode="1"
+     android:versionName="1.0">
+
+  <application android:name=".guice.GitHubNotifyApplication"
+               android:label="@string/app_name"
+               android:icon="@drawable/icon"
+               android:debuggable="true"
+               android:hardwareAccelerated="true">
+
+    <activity android:name=".activity.WatchPreferencesActivity"
+              android:icon="@drawable/icon"
+              android:label="GitHub Notify">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{AndroidManifest.xml}
+\begin{lstlisting}
+    <service android:name=".service.NewCommitNotifierService"/>
+  </application>
+
+  <!-- PERMISSIONS -->
+  <uses-sdk android:minSdkVersion="6"
+            android:targetSdkVersion="11"/>
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+</manifest>
+\end{lstlisting}
+\end{frame}
 
 % przegląd ACTIVITIES
 \begin{frame}\frametitle{Activity lifecycle}
@@ -341,3 +431,10 @@ http://developer.android.com/resources/
 
 \end{frame}
 
+
+
+
+
+
+
+\end{document}
