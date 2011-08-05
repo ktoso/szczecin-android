@@ -27,11 +27,11 @@ public class NumberWidget extends AppWidgetProvider {
       myNumber = extras.getInt(RandomNumbersService.EXTRA_NUMBER);
 
       Log.i("NumberWidget", "Got " + RandomNumbersService.NUMBER_INTENT_ACTION_NAME + " [" + myNumber + "] Intent!");
-    }
 
-    AppWidgetManager mngr = AppWidgetManager.getInstance(context);
-    int[] appWidgetIds = mngr.getAppWidgetIds(intent.getComponent());
-    onUpdate(context, mngr, appWidgetIds);
+      AppWidgetManager mngr = AppWidgetManager.getInstance(context);
+      int[] appWidgetIds = mngr.getAppWidgetIds(intent.getComponent());
+      onUpdate(context, mngr, appWidgetIds);
+    }
   }
 
   @Override

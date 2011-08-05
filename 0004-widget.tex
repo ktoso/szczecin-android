@@ -198,6 +198,140 @@ notificationManager.notify(ACTION_ID, // explain
 \end{frame}
 
 
+\begin{frame}
+\begin{center}
+ \Huge{Service}
+\end{center}
+\end{frame}
+
+\begin{frame}\frametitle{Service}
+\begin{itemize}
+ \item Service uruchamiany jest na tym samym głównym wątku co Activity (UIThread)
+ \pause \item Oczywiście nie wolno mu go ,,zablokować''
+ \pause \item Service działa ,,w tle'', nie ma UI
+ \pause \item Service to \textbf{NIE} osobny proces
+ \pause \item Service to \textbf{NIE} osobny wątek
+ \pause \item Kontunuuje działanie nawet po zamknięciu wszelkich Activity aplikacji
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{2 ,,rodzaje'' Service (choć ta sama klasa)}
+Mimo, że zawsze mówimy o \textbf{android.app.Service}, możemy mieć na myśli 2 ,,typy'' Service:
+\begin{itemize}
+ \pause \item ,,\textbf{Uruchamiany}'' celem zrobienia czegoś przez nas - \textbf{startService(Intent)}
+ \pause \item ,,\textbf{Udostępniany}'' celem udostępnienia komuś API, nawet zewnętrznym aplikacjom! - tutaj mowa o \textbf{IBinder} i \textbf{onBind()}. (Bardzo zaawansowane rzeczy można tutaj robić, vide AIDL)
+\end{itemize}
+\pause Nas interesuje jedynie pierwszy rodzaj serwisu.
+\end{frame}
+
+\begin{frame}\frametitle{Service lifecycle}
+ \begin{itemize}
+  \item \textbf{onCreate()} - gdy jeszcze nie był utworzony, a zawołano \textbf{startService()}
+  \pause \item \textbf{onStart()} - przy uruchomieniu Serwisu, po onCreate() - tutaj umieszczamy ,,logikę''
+  \pause \item \textbf{onBind()} - w przypadku ,,uruchomienia'' przez \textbf{bindService()}, na razie nas nie interesuje - możemy zwracać \textbf{null}
+  \pause \item \textbf{onStartCommand()} - wołany za każdym radem gdy ktoś startuje service. \textit{OnCreate() nie zostałby zawołany jak 2 razy pod rząd zastartujesz serwis!}
+  \pause \item \textbf{onDestroy()} - wiadomo, gdy servis zostaje zatrzymywany
+  \pause \item ciekawostka: \textbf{onLowMemory()} - gdy zaczyna brakować pamięci w systemie. Po zwróceniu z tej metody android przeprowadzi Garbage Collection.
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Service - AndroidManifest.xml}
+\begin{lstlisting}
+<application>
+<!-- ... -->
+<service android:name=".service.MyService"/>
+</application>
+\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]\frametitle{Service - implementacja}
+\begin{lstlisting}
+public class MyService extends RoboService {
+  public IBinder onBind(Intent intent) {
+    return null;
+  }
+
+  @Override
+  public void onCreate() {
+    // ... 
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Service - implementacja}
+Częsta implementacja:
+\begin{lstlisting}
+public class MyService extends RoboService {
+  // ...
+
+  Timer myTimer;
+
+  @Override
+  public void onCreate() {
+    // ... 
+    myTimer = new Timer();
+    myTimer.schedule(new DoStuffTimerTask(/**/), M, M);
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Service - sendBroadcast(Intent)}
+Jedno z popularniejszych zastosowań - service pracuje w tle, a następnie powiadamia ,,zainteresowanych'' że skończył.
+\begin{lstlisting}
+class DoStuffTimerTask {
+  public void run(){
+    int number = random.nextInt();
+
+    Intent intent = new Intent("pl.llp.NEW_NUMBER")
+    intent.putExtra("number", number);
+    sendBroadcast(intent);
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}\frametitle{Być może zadanko?}
+\begin{itemize}
+ \item \textbf{AppWidget} który będzie pokazywał wartość którą generuje cyklicznie \textbf{Service}
+ \pause \item Service ma powiadamiać AppWidget poprzez sendBroadcast()
+ \pause \item AppWidget (jest reciever'em) i w AndroidManifest musi również słuchać na nasz nowy intent
+ \pause \item implementujemy w nim onRecieve - również oprócz onUpdate!
+\end{itemize}
+\pause \textit{Bardzo możliwe że traficie na kilka ,,ale powinno działać'' - ping me w razie problemów.}
+\end{frame}
+
+\begin{frame}[fragile]\frametitle{Hackaround... w razie problemów.}
+\begin{lstlisting}
+public void onReceive(Context context, Intent intent) {
+  super.onReceive(context, intent);
+
+  if (intent.getAction()
+      .equals(RandomNumbersService
+              .NUMBER_INTENT_ACTION_NAME)) {
+    
+    Bundle extras = intent.getExtras();
+    // ...
+
+    // force update !
+    AppWidgetManager mngr = AppWidgetManager
+                                 .getInstance(context);
+    int[] appWidgetIds = 
+           mngr.getAppWidgetIds(intent.getComponent());
+    
+    onUpdate(context, mngr, appWidgetIds);
+  }
+}
+\end{lstlisting}
+\end{frame}
+
+
+
+
+
 
 
 
