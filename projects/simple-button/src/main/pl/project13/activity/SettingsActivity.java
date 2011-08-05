@@ -1,10 +1,11 @@
-package pl.project13;
+package pl.project13.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import pl.project13.R;
 import roboguice.activity.RoboPreferenceActivity;
 
 /**

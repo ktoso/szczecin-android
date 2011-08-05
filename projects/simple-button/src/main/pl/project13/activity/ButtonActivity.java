@@ -1,12 +1,9 @@
-package pl.project13;
+package pl.project13.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Editable;
-import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.google.inject.Inject;
+import pl.project13.R;
+import pl.project13.activity.SettingsActivity;
+import pl.project13.activity.TasksActivity;
+import pl.project13.service.RandomNumbersService;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.InjectView;
 
@@ -52,6 +53,8 @@ public class ButtonActivity extends RoboActivity {
         hideButton();
       }
     });
+
+    startService(new Intent(this, RandomNumbersService.class));
   }
 
   private void hideButton() {

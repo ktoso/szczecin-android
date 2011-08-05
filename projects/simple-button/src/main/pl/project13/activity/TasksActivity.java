@@ -1,12 +1,12 @@
-package pl.project13;
+package pl.project13.activity;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 import com.google.inject.Inject;
+import pl.project13.R;
 import pl.project13.lazy.Details;
 import pl.project13.lazy.LazyWorker;
 import roboguice.activity.RoboListActivity;

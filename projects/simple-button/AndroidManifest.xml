@@ -7,14 +7,24 @@
                  android:label="@string/app_name"
                  android:icon="@drawable/icon">
 
-        <activity android:name=".ButtonActivity"
+        <activity android:name=".activity.ButtonActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".TasksActivity"/>
-        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".activity.TasksActivity"/>
+        <activity android:name=".activity.SettingsActivity"/>
+        <service android:name=".service.RandomNumbersService"/>
+
+        <receiver android:name=".widget.NumberWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="pl.project.NEW_RANDOM_NUMBER"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                       android:resource="@xml/number_widget"/>
+        </receiver>
     </application>
 </manifest> 
