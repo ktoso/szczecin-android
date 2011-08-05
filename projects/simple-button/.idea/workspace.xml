@@ -2,20 +2,23 @@
 <project version="4">
   <component name="AndroidLogFilters">
     <option name="TAB_CUSTOM_FILTER" value="numberwid" />
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="performin" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="df39f17a-c4a7-494a-a707-922f8a63271c" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/number_widget.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/colors.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/styles.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/pl/project13/activity/AdapterActivity.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/pl/project13/service/RandomNumbersService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/pl/project13/worker/CountriesResource.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/pl/project13/worker/NumberGenerator.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/pl/project13/worker/RandomNumberGenerator.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/pl/project13/ButtonActivity.java" afterPath="$PROJECT_DIR$/src/main/pl/project13/activity/ButtonActivity.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/pl/project13/SettingsActivity.java" afterPath="$PROJECT_DIR$/src/main/pl/project13/activity/SettingsActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/pl/project13/TasksActivity.java" afterPath="$PROJECT_DIR$/src/main/pl/project13/activity/TasksActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/pl/project13/R.java" afterPath="$PROJECT_DIR$/gen/pl/project13/R.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/main.xml" afterPath="$PROJECT_DIR$/res/layout/main.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/xml/number_widget.xml" afterPath="$PROJECT_DIR$/res/xml/number_widget.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/pl/project13/activity/ButtonActivity.java" afterPath="$PROJECT_DIR$/src/main/pl/project13/activity/ButtonActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/pl/project13/guice/SzczecinWorkshopModule.java" afterPath="$PROJECT_DIR$/src/main/pl/project13/guice/SzczecinWorkshopModule.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/pl/project13/widget/NumberWidget.java" afterPath="$PROJECT_DIR$/src/main/pl/project13/widget/NumberWidget.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/pl/project13/ButtonActivityTest.java" afterPath="$PROJECT_DIR$/src/test/pl/project13/ButtonActivityTest.java" />
@@ -90,19 +93,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="NumberGenerator.java" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="NumberGenerator.java" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/pl/project13/worker/NumberGenerator.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="7" column="25" selection-start="131" selection-end="131" vertical-scroll-proportion="0.0">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="NumberWidget.java" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/pl/project13/widget/NumberWidget.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="20" column="2" selection-start="491" selection-end="1096" vertical-scroll-proportion="0.13111888">
+                <state line="11" column="60" selection-start="212" selection-end="212" vertical-scroll-proportion="0.2820513">
                   <folding />
                 </state>
               </provider>
@@ -139,19 +133,39 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="ButtonActivityTest.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/test/pl/project13/ButtonActivityTest.java">
+          <file leaf-file-name="TasksActivity.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/pl/project13/activity/TasksActivity.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="57" column="44" selection-start="1646" selection-end="1646" vertical-scroll-proportion="0.0">
+                <state line="35" column="0" selection-start="866" selection-end="866" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="TasksActivity.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/pl/project13/activity/TasksActivity.java">
+          <file leaf-file-name="AdapterActivity.java" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/pl/project13/activity/AdapterActivity.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="22" column="2" selection-start="544" selection-end="544" vertical-scroll-proportion="0.0">
+                <state line="40" column="7" selection-start="745" selection-end="1209" vertical-scroll-proportion="0.7377622">
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ButtonActivity.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/pl/project13/activity/ButtonActivity.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="61" column="0" selection-start="2011" selection-end="2011" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="main.xml" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="24" column="43" selection-start="1073" selection-end="1073" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
@@ -169,7 +183,16 @@
           <file leaf-file-name="list.xml" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/res/layout/list.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="8" column="4" selection-start="345" selection-end="449" vertical-scroll-proportion="0.0">
+                <state line="22" column="29" selection-start="0" selection-end="1066" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="CountriesResource.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/pl/project13/worker/CountriesResource.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="35" column="9" selection-start="2549" selection-end="2549" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
@@ -193,10 +216,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="24" column="68" selection-start="1159" selection-end="1159" vertical-scroll-proportion="0.61538464">
+                <state line="17" column="57" selection-start="825" selection-end="825" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
@@ -218,11 +241,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/res/layout/list_row.xml" />
-        <option value="$PROJECT_DIR$/src/main/pl/project13/lazy/LazyWorker.java" />
-        <option value="$PROJECT_DIR$/src/main/pl/project13/TasksActivity.java" />
-        <option value="$PROJECT_DIR$/res/layout/widget.xml" />
-        <option value="$PROJECT_DIR$/src/main/pl/project13/NumberWidget.java" />
         <option value="$PROJECT_DIR$/src/main/pl/project13/guice/SzczecinWorkshopModule.java" />
         <option value="$PROJECT_DIR$/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/src/main/pl/project13/ButtonActivity.java" />
@@ -232,8 +250,13 @@
         <option value="$PROJECT_DIR$/src/main/pl/project13/service/RandomNumbersService.java" />
         <option value="$PROJECT_DIR$/src/main/pl/project13/worker/RandomNumberGenerator.java" />
         <option value="$PROJECT_DIR$/res/xml/number_widget.xml" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/main/pl/project13/widget/NumberWidget.java" />
+        <option value="$PROJECT_DIR$/src/main/pl/project13/activity/TasksActivity.java" />
+        <option value="$PROJECT_DIR$/src/main/pl/project13/worker/CountriesResource.java" />
+        <option value="$PROJECT_DIR$/res/layout/main.xml" />
+        <option value="$PROJECT_DIR$/src/main/pl/project13/activity/ButtonActivity.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/main/pl/project13/activity/AdapterActivity.java" />
       </list>
     </option>
   </component>
@@ -434,36 +457,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="project13" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simple-button" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="simple-button" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="project13" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="guice" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1035,62 +1028,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/guice/SzczecinWorkshopModule.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="21" selection-start="387" selection-end="387" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/guice/SzczecinWorkshopApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="13" selection-start="226" selection-end="226" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/libs/roboguice-1.1.1.jar!/roboguice/service/RoboService.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="22" selection-start="164" selection-end="164" vertical-scroll-proportion="-3.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="20" selection-start="112" selection-end="112" vertical-scroll-proportion="0.0795053">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="31" selection-start="83" selection-end="83" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/number_widget.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="39" selection-start="381" selection-end="381" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/activity/ButtonActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="44" selection-start="1752" selection-end="1752" vertical-scroll-proportion="0.32155478">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/activity/TasksActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="2" selection-start="544" selection-end="544" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/coding/libs/android-latest/platforms/android-8/android.jar!/android/content/BroadcastReceiver.class">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="27" selection-start="167" selection-end="167" vertical-scroll-proportion="0.13562387">
@@ -1112,6 +1049,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/res/xml/number_widget.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="35" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/list.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="29" selection-start="0" selection-end="1066" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/activity/TasksActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="0" selection-start="866" selection-end="866" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/pl/project13/service/RandomNumbersService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="25" column="0" selection-start="658" selection-end="658" vertical-scroll-proportion="0.0">
@@ -1121,30 +1079,67 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/worker/NumberGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/widget/NumberWidget.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="25" selection-start="131" selection-end="131" vertical-scroll-proportion="0.0">
+        <state line="41" column="32" selection-start="1331" selection-end="1331" vertical-scroll-proportion="0.83916086">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/xml/number_widget.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/worker/CountriesResource.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="35" selection-start="171" selection-end="171" vertical-scroll-proportion="0.0">
+        <state line="35" column="9" selection-start="2549" selection-end="2549" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/pl/project13/ButtonActivityTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="44" selection-start="1646" selection-end="1646" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/main.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="43" selection-start="1073" selection-end="1073" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/activity/ButtonActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="0" selection-start="2011" selection-end="2011" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="68" selection-start="1159" selection-end="1159" vertical-scroll-proportion="0.61538464">
+        <state line="17" column="57" selection-start="825" selection-end="825" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/widget/NumberWidget.java">
+    <entry file="file://$PROJECT_DIR$/res/layout/list_row.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="2" selection-start="491" selection-end="1096" vertical-scroll-proportion="0.13111888">
+        <state line="7" column="31" selection-start="400" selection-end="405" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/activity/AdapterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="7" selection-start="745" selection-end="1209" vertical-scroll-proportion="0.7377622">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/pl/project13/worker/NumberGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="60" selection-start="212" selection-end="212" vertical-scroll-proportion="0.2820513">
           <folding />
         </state>
       </provider>

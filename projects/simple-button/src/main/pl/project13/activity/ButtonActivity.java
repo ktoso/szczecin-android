@@ -31,6 +31,8 @@ public class ButtonActivity extends RoboActivity {
   private TextView text;
   @InjectView(R.id.whom_to_hello_edit_text)
   private EditText greet;
+  @InjectView(R.id.adapter_list_activity_show_button)
+  private Button showAdapterActivityButton;
 
   @Inject
   private SharedPreferences preferences;
@@ -51,6 +53,13 @@ public class ButtonActivity extends RoboActivity {
         text.setText(helloText);
         button.setEnabled(false);
         hideButton();
+      }
+    });
+
+    showAdapterActivityButton.setOnClickListener(new View.OnClickListener() {
+      public void onClick(View view) {
+        Intent activityIntent = new Intent(ButtonActivity.this, AdapterActivity.class);
+        startActivity(activityIntent);
       }
     });
 

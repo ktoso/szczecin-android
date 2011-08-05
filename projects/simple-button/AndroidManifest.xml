@@ -15,6 +15,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TasksActivity"/>
+        <activity android:name=".activity.AdapterActivity"/>
         <activity android:name=".activity.SettingsActivity"/>
         <service android:name=".service.RandomNumbersService"/>
 

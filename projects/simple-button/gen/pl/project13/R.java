@@ -22,11 +22,12 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int click_me_menu_item=0x7f0a0008;
-        public static final int hello_text=0x7f0a0005;
+        public static final int adapter_list_activity_show_button=0x7f0a0005;
+        public static final int click_me_menu_item=0x7f0a0009;
+        public static final int hello_text=0x7f0a0006;
         public static final int main_button=0x7f0a0003;
-        public static final int number_text=0x7f0a0006;
-        public static final int preferences_menu_item=0x7f0a0007;
+        public static final int number_text=0x7f0a0007;
+        public static final int preferences_menu_item=0x7f0a0008;
         public static final int show_other_button=0x7f0a0004;
         public static final int text1=0x7f0a0000;
         public static final int text2=0x7f0a0001;

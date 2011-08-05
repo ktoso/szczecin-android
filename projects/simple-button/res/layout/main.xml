@@ -19,6 +19,11 @@
             android:layout_height="wrap_content"
             android:text="Show other activity"
             />
+    <Button android:id="@+id/adapter_list_activity_show_button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Show adapter demo"
+            />
     <TextView
             android:id="@+id/hello_text"
             android:layout_width="fill_parent"
